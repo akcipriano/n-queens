@@ -100,14 +100,7 @@
       var newBoard = this.rows();
 
       for (var i = 0; i < newBoard.length; i++) {
-        var count = 0;
-        for (var j = 0; j < newBoard[i].length; j++) {
-          if (newBoard[i][j] === 1) {
-            count++;
-          }
-        }
-
-        if (count > 1) {
+        if (this.hasRowConflictAt(i)) {
           return true;
         }
       }
