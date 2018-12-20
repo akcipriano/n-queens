@@ -153,8 +153,15 @@
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
       var newBoard = this.rows();
       var counter = 0;
+      var index = Math.abs(majorDiagonalColumnIndexAtFirstRow);
+      var startingIndex = 0;
 
-      for (var i = 0; i < (newBoard.length - majorDiagonalColumnIndexAtFirstRow); i++) {
+      if (index < 0) {
+        startingIndex = -1 * majorDiagonalColumnIndexAtFirstRow;
+        majorDiagonalColumnIndexAtFirstRow = 0;
+      }
+
+      for (var i = startingIndex; i < (newBoard.length - index); i++) {
         if (newBoard[i][majorDiagonalColumnIndexAtFirstRow] === 1) {
           counter++;
         }
@@ -171,7 +178,6 @@
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
       var newBoard = this.rows();
-      var counter = 0;
 
       for (var i = 0; i < newBoard[0].length - 1; i++) {
         if (this.hasMajorDiagonalConflictAt(i)) {
@@ -179,11 +185,11 @@
         }
       }
 
-      for (var i = 1; i < newBoard.length - 1; i++) {
+      for (var k = 1; k < newBoard.length - 1; k++) {
         var counter = 0;
-        var indexHolder = i;
+        var indexHolder = k;
 
-        for (var j = 0; j < newBoard.length - i; j++) {
+        for (var j = 0; j < newBoard.length - k; j++) {
           if (newBoard[indexHolder][j] === 1) {
             counter++;
           }
@@ -209,8 +215,16 @@
       var newBoard = this.rows();
       var counter = 0;
       var index = minorDiagonalColumnIndexAtFirstRow;
+      var startingIndex = 0;
+      var endingIndex = index + 1;
 
-      for (var i = 0; i < (index + 1); i++) {
+
+      if (index >= newBoard.length) {
+        startingIndex = index - (newBoard.length - 1);
+        endingIndex = newBoard.length;
+      }
+
+      for (var i = startingIndex; i < endingIndex; i++) {
         if (newBoard[i][minorDiagonalColumnIndexAtFirstRow] === 1) {
           counter++;
         }
@@ -228,7 +242,6 @@
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
       var newBoard = this.rows();
-      var counter = 0;
 
       for (var i = 1; i < newBoard[0].length; i++) {
         if (this.hasMinorDiagonalConflictAt(i)) {
