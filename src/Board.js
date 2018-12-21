@@ -155,13 +155,15 @@
       var counter = 0;
       var index = Math.abs(majorDiagonalColumnIndexAtFirstRow);
       var startingIndex = 0;
+      var endingIndex = newBoard.length - index;
 
-      if (index < 0) {
+      if (majorDiagonalColumnIndexAtFirstRow < 0) {
         startingIndex = -1 * majorDiagonalColumnIndexAtFirstRow;
+        endingIndex = newBoard.length;
         majorDiagonalColumnIndexAtFirstRow = 0;
       }
 
-      for (var i = startingIndex; i < (newBoard.length - index); i++) {
+      for (var i = startingIndex; i < endingIndex; i++) {
         if (newBoard[i][majorDiagonalColumnIndexAtFirstRow] === 1) {
           counter++;
         }
@@ -222,6 +224,7 @@
       if (index >= newBoard.length) {
         startingIndex = index - (newBoard.length - 1);
         endingIndex = newBoard.length;
+        minorDiagonalColumnIndexAtFirstRow = newBoard.length - 1;
       }
 
       for (var i = startingIndex; i < endingIndex; i++) {
