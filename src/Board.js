@@ -195,19 +195,8 @@
         }
       }
 
-      for (var k = 1; k < newBoard.length - 1; k++) {
-        var counter = 0;
-        var indexHolder = k;
-
-        for (var j = 0; j < newBoard.length - k; j++) {
-          if (newBoard[indexHolder][j] === 1) {
-            counter++;
-          }
-
-          indexHolder++;
-        }
-
-        if (counter > 1) {
+      for (var k = -1; k > - (newBoard[0].length - 1); k--) {
+        if (this.hasMajorDiagonalConflictAt(k)) {
           return true;
         }
       }
@@ -264,19 +253,8 @@
         }
       }
 
-      for (var i = 1; i < newBoard.length - 1; i++) {
-        var counter = 0;
-        var indexHolder = i;
-
-        for (var j = newBoard.length - 1; j >= (newBoard.length - (newBoard.length - i)); j--) {
-          if (newBoard[indexHolder][j] === 1) {
-            counter++;
-          }
-
-          indexHolder++;
-        }
-
-        if (counter > 1) {
+      for (var k = 1; k < newBoard.length - 1; k++) {
+        if (this.hasMinorDiagonalConflictAt(k + newBoard.length - 1)) {
           return true;
         }
       }
