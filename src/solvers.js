@@ -16,10 +16,16 @@
 
 
 window.findNRooksSolution = function(n) {
-  var solution = undefined; //fixme
+  var solution = new Board({n: n});
+  var index = 0;
+
+  for (var i = 0; i < solution.rows().length; i++) {
+    solution.togglePiece(i, index);
+    index++;
+  }
 
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
-  return solution;
+  return solution.rows();
 };
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
@@ -32,10 +38,32 @@ window.countNRooksSolutions = function(n) {
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n) {
-  var solution = undefined; //fixme
+  var solution = new Board({n: n});
+
+  if (n === 0 || n === 2 || n === 3) {
+    return solution.rows();
+  }
+
+  if (n === 1) {
+    solution.togglePiece(0, 0);
+    return solution.rows();
+  }
+
+  var x = solution.rows().length - 2;
+  var y = solution.rows().length - 1;
+
+  for (var i = 0; i < solution.rows().length; i++) {
+    if (x >= 0) {
+      solution.togglePiece(x, i);
+      x = x - 2;
+    } else {
+      solution.togglePiece(y, i);
+      y = y - 2;
+    }
+  }
 
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
-  return solution;
+  return solution.rows();
 };
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
