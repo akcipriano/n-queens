@@ -135,6 +135,10 @@
     hasAnyColConflicts: function() {
       var firstRow = this.rows()[0];
 
+      if (this.rows().length === 0) {
+        return false;
+      }
+
       for (var i = 0; i < firstRow.length; i++) {
         if (this.hasColConflictAt(i)) {
           return true;
@@ -180,6 +184,10 @@
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
       var newBoard = this.rows();
+
+      if (this.rows().length === 0) {
+        return false;
+      }
 
       for (var i = 0; i < newBoard[0].length - 1; i++) {
         if (this.hasMajorDiagonalConflictAt(i)) {
@@ -245,6 +253,10 @@
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
       var newBoard = this.rows();
+
+      if (this.rows().length === 0) {
+        return false;
+      }
 
       for (var i = 1; i < newBoard[0].length; i++) {
         if (this.hasMinorDiagonalConflictAt(i)) {
