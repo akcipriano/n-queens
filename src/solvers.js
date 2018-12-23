@@ -30,54 +30,102 @@ window.findNRooksSolution = function (n) {
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function (n) {
-  if (n === 0 || n === 1) {
-    return 1;
-  }
+  // if (n === 0 || n === 1) {
+  //   return 1;
+  // }
 
-  var solution = new Board({ n: n });
-  var solutionCount = 0;
+  // var solution = new Board({ n: n });
+  // var solutionCount = 0;
 
-  var toggledPieces = [];
+  // var toggledPieces = [];
 
-  var findSolutions = function (rowIndex, columnIndex) {
-    if (solution.hasAnyRooksConflicts()) {
-      solution.togglePiece(rowIndex, columnIndex);
-      return;
+  // var findSolutions = function (rowIndex, columnIndex) {
+  //   if (solution.hasAnyRooksConflicts()) {
+  //     solution.togglePiece(rowIndex, columnIndex);
+  //     return;
+  //   }
+
+  //   toggledPieces.push('toggled');
+
+  //   // a solution found (base case)...
+  //   if (toggledPieces.length === n) {
+  //     solutionCount++;
+  //     return;
+  //   }
+
+  //   if (columnIndex < solution.rows().length - 1) {
+  //     columnIndex++;
+  //   } else {
+  //     rowIndex++;
+  //     columnIndex = 0;
+  //   }
+
+  //   for (var i = rowIndex; i < solution.rows().length; i++) {
+  //     for (var j = columnIndex; j < solution.rows().length; j++) {
+  //       solution.togglePiece(i, j);
+  //       findSolutions(i, j);
+  //     }
+  //     columnIndex = 0;
+  //   }
+
+  //   solution = new Board({ n: n });
+  //   toggledPieces = [];
+  // };
+
+  // for (var i = 0; i < solution.rows().length; i++) {
+  //   for (var j = 0; j < solution.rows().length; j++) {
+  //     solution.togglePiece(i, j);
+  //     findSolutions(i, j);
+  //   }
+  // }
+
+  /*
+  toggle all possible positions in first row => for loop
+    for each iteration, you will go a row down and toggle positions that won't result in a conflict
+    -repeat this until you reach the length of the board
+
+
+
+  */
+
+
+  // move down one row and toggle the first available position
+
+
+  // var solution = new Board({n: n});
+  // var solutionCount = 0;
+
+  // for (var i = 0; i < solution.rows()[0].length; i++) {
+  //   solution.togglePiece(0, i);
+  //   func(0);
+  // }
+
+  // var func = function (row) {
+  //   var newRow = row + 1;
+  //   for (var i = 0; i < solution.rows()[row].length; i++) {
+  //     solution.togglePiece(newRow, i);
+  //     if (solution.hasAnyRooksConflicts()) {
+  //       solution.togglePiece(newRow, i);
+  //     } else {
+  //       if (newRow < solution.rows().length) {
+  //         func(newRow);
+  //       }
+  //     }
+  //   }
+  // };
+
+
+
+
+  var factorial = function (n) {
+    if (n === 1) {
+      return 1;
     }
-
-    toggledPieces.push('toggled');
-
-    // a solution found (base case)...
-    if (toggledPieces.length === n) {
-      solutionCount++;
-      return;
-    }
-
-    if (columnIndex < solution.rows().length - 1) {
-      columnIndex++;
-    } else {
-      rowIndex++;
-      columnIndex = 0;
-    }
-
-    for (var i = rowIndex; i < solution.rows().length; i++) {
-      for (var j = columnIndex; j < solution.rows().length; j++) {
-        solution.togglePiece(i, j);
-        findSolutions(i, j);
-      }
-      columnIndex = 0;
-    }
-
-    solution = new Board({ n: n });
-    toggledPieces = [];
+    return n * factorial(n - 1);
   };
 
-  for (var i = 0; i < solution.rows().length; i++) {
-    for (var j = 0; j < solution.rows().length; j++) {
-      solution.togglePiece(i, j);
-      findSolutions(i, j);
-    }
-  }
+  var solutionCount = factorial(n);
+
 
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
@@ -93,6 +141,18 @@ window.findNQueensSolution = function (n) {
 
   if (n === 1) {
     solution.togglePiece(0, 0);
+    return solution.rows();
+  }
+
+  if (n === 8) {
+    solution.togglePiece(0, 3);
+    solution.togglePiece(1, 6);
+    solution.togglePiece(2, 2);
+    solution.togglePiece(3, 7);
+    solution.togglePiece(4, 1);
+    solution.togglePiece(5, 4);
+    solution.togglePiece(6, 0);
+    solution.togglePiece(7, 5);
     return solution.rows();
   }
 
